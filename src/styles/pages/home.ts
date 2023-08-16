@@ -32,6 +32,8 @@ export const Product = styled('a', {
 
     borderRadius: 6,
 
+    textDecoration: 'none',
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
