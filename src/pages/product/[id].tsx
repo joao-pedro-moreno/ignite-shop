@@ -6,6 +6,7 @@ import Stripe from "stripe"
 import { useRouter } from "next/router"
 import axios from "axios"
 import { useState } from "react"
+import Head from "next/head"
 
 interface ProductProps {
   product: {
@@ -53,21 +54,27 @@ export default function Product({ product }: ProductProps) {
   }
 
   return (
-    <ProductContainer>
-      <ImageContainer>
-        <Image src={product.imageUrl} alt="" width={520} height={480} />
-      </ImageContainer>
+    <>
+      <Head>
+        <title>{product.name} | Ignite Shop</title>
+      </Head>
 
-      <ProductDetails>
-        <h1>{product.name}</h1>
-        <span>{product.price}</span>
+      <ProductContainer>
+        <ImageContainer>
+          <Image src={product.imageUrl} alt="" width={520} height={480} />
+        </ImageContainer>
 
-        <p>{product.description}</p>
+        <ProductDetails>
+          <h1>{product.name}</h1>
+          <span>{product.price}</span>
 
-        <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>Comprar agora</button>
+          <p>{product.description}</p>
 
-      </ProductDetails>
-    </ProductContainer>
+          <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>Comprar agora</button>
+
+        </ProductDetails>
+      </ProductContainer>
+    </>
   )
 }
 
@@ -90,7 +97,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ para
   const price = product.default_price as Stripe.Price
 
   return {
-    props:{
+    props: {
       product: {
         id: product.id,
         name: product.name,
